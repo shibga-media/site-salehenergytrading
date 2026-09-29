@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saleh Energy Trading (SET) — International Energy Trading &amp; Sourcing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B141C;
+    --bg-2: #0F1D28;
+    --panel: #13242F;
+    --ink: #F3F4F1;
+    --ink-dim: #93A2AC;
+    --accent: #BB9C5D;
+    --accent-dim: #6B5A35;
+    --line: #223140;
+    --radius: 2px;
+    --maxw: 1180px;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3{ font-family:'Source Serif 4', Georgia, serif; font-weight:500; margin:0; letter-spacing:-0.01em; }
+  a{ color:inherit; }
+  .wrap{ max-width: var(--maxw); margin:0 auto; padding:0 32px; }
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
+    outline: 2px solid var(--accent); outline-offset: 3px;
+  }
+  .reveal{ opacity:0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ---------- NAV ---------- */
+  header.site{ position:sticky; top:0; z-index:50; background:rgba(11,20,28,0.94); backdrop-filter:blur(6px); border-bottom:1px solid var(--line); }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 0; }
+  .logo{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .logo .mark{ font-family:'Source Serif 4',serif; font-size:1.6rem; color:var(--accent); letter-spacing:0.03em; }
+  .logo .name{ display:flex; flex-direction:column; line-height:1.1; }
+  .logo .name span:first-child{ font-size:0.82rem; letter-spacing:0.08em; color:var(--ink); }
+  .logo .name span:last-child{ font-size:0.62rem; letter-spacing:0.14em; color:var(--ink-dim); }
+  nav.links{ display:flex; gap:30px; align-items:center; }
+  nav.links a{ text-decoration:none; color:var(--ink-dim); font-size:0.88rem; transition:color 0.15s ease; }
+  nav.links a:hover{ color:var(--ink); }
+  .cta{ border:1px solid var(--accent-dim); color:var(--ink); background:transparent; padding:10px 20px; font-size:0.85rem; text-decoration:none; white-space:nowrap; transition:border-color 0.15s ease, background 0.15s ease; }
+  .cta:hover{ border-color:var(--accent); background:rgba(187,156,93,0.08); }
+  .menu-btn{ display:none; background:none; border:1px solid var(--line); color:var(--ink); width:40px; height:40px; font-size:1.1rem; cursor:pointer; }
+
+  /* ---------- HERO ---------- */
+  .hero{ position:relative; padding:110px 0 90px 0; border-bottom:1px solid var(--line); overflow:hidden; }
+  .hero-illustration{ position:absolute; inset:0; opacity:0.55; pointer-events:none; }
+  .hero-content{ position:relative; max-width:680px; }
+  .hero .eyebrow{ color:var(--accent); font-size:0.82rem; letter-spacing:0.1em; margin-bottom:20px; }
+  .hero h1{ font-size:clamp(2.2rem, 4.4vw, 3.3rem); line-height:1.14; }
+  .hero .lede{ margin-top:24px; max-width:56ch; color:var(--ink-dim); font-size:1.05rem; }
+  .hero .actions{ margin-top:36px; display:flex; gap:16px; flex-wrap:wrap; }
+  .btn-primary{ background:var(--accent); color:#14100A; text-decoration:none; padding:13px 26px; font-size:0.92rem; font-weight:500; transition:background 0.15s ease; }
+  .btn-primary:hover{ background:#CDB278; }
+  .btn-ghost{ color:var(--ink); text-decoration:none; padding:13px 4px; font-size:0.92rem; border-bottom:1px solid var(--line); }
+  .btn-ghost:hover{ border-color:var(--ink); }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding:96px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+  .section-head{ display:grid; grid-template-columns:1fr 1.3fr; gap:48px; margin-bottom:56px; }
+  .section-head .tag{ color:var(--accent); font-size:0.8rem; letter-spacing:0.1em; }
+  .section-head h2{ font-size:clamp(1.7rem, 3vw, 2.3rem); margin-top:14px; }
+  .section-head p{ color:var(--ink-dim); max-width:54ch; font-size:1.02rem; }
+
+  /* about */
+  .about-body{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; }
+  .about-body p{ color:var(--ink-dim); margin:0 0 18px 0; }
+  .about-body p:last-child{ margin-bottom:0; }
+  .about-focus{ border-left:1px solid var(--line); padding-left:28px; }
+  .about-focus h3{ font-size:1.1rem; }
+  .about-focus p{ color:var(--ink-dim); margin-top:12px; font-size:0.98rem; }
+
+  /* what we do grid */
+  .wwd-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+  .wwd-card{ background:var(--bg); padding:32px 28px 36px 28px; }
+  .wwd-card h3{ font-size:1.08rem; margin-bottom:12px; }
+  .wwd-card p{ color:var(--ink-dim); font-size:0.94rem; }
+  .wwd-card ul{ margin:14px 0 0 0; padding-left:18px; color:var(--ink-dim); font-size:0.9rem; }
+  .wwd-card li{ margin-bottom:4px; }
+
+  /* products */
+  .product-panel{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; }
+  .product-panel p{ color:var(--ink-dim); font-size:1.02rem; margin:0 0 16px 0; }
+  .coord-list{ border-top:1px solid var(--line); }
+  .coord-list div{ display:flex; justify-content:space-between; padding:14px 0; border-bottom:1px solid var(--line); color:var(--ink-dim); font-size:0.95rem; }
+  .coord-list div span:first-child{ color:var(--ink); }
+
+  /* markets */
+  .markets-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:40px; }
+  .market{ border-top:1px solid var(--accent-dim); padding-top:18px; }
+  .market h3{ font-size:1.1rem; }
+  .market p{ color:var(--ink-dim); margin-top:12px; font-size:0.96rem; }
+
+  /* how we work */
+  .steps{ display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+  .step{ background:var(--bg); padding:28px 22px 32px 22px; }
+  .step .num{ font-family:'Source Serif 4',serif; font-size:1.6rem; color:var(--accent); }
+  .step h3{ font-size:0.98rem; margin-top:16px; }
+  .step p{ color:var(--ink-dim); font-size:0.88rem; margin-top:10px; }
+
+  /* why set */
+  .why-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:28px; }
+  .why-item h3{ font-size:0.98rem; }
+  .why-item p{ color:var(--ink-dim); font-size:0.88rem; margin-top:10px; }
+
+  /* approach */
+  .approach{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+  .approach p{ color:var(--ink-dim); font-size:1.05rem; }
+
+  /* CTA bands */
+  .cta-band{ background:var(--bg-2); }
+  .cta-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:start; }
+  .cta-grid h2{ font-size:clamp(1.5rem,2.6vw,2rem); }
+  .cta-grid p{ color:var(--ink-dim); margin-top:16px; max-width:52ch; }
+
+  .mini-form{ background:var(--panel); border:1px solid var(--line); padding:30px; }
+  .mini-form h3{ font-size:1.02rem; margin-bottom:18px; }
+  .mini-form .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+  /* contact */
+  .contact-grid{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:64px; }
+  .contact-info dl{ margin:24px 0 0 0; }
+  .contact-info dt{ color:var(--ink-dim); font-size:0.8rem; margin-top:18px; }
+  .contact-info dt:first-child{ margin-top:0; }
+  .contact-info dd{ margin:6px 0 0 0; font-size:1.02rem; }
+  .contact-info a{ text-decoration:none; border-bottom:1px solid var(--line); }
+  .contact-info a:hover{ border-color:var(--accent); color:var(--accent); }
+
+  form{ display:grid; gap:16px; }
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  label{ display:block; font-size:0.8rem; color:var(--ink-dim); margin-bottom:7px; }
+  input, textarea, select{ width:100%; background:var(--bg); border:1px solid var(--line); color:var(--ink); padding:11px 13px; font-family:inherit; font-size:0.93rem; border-radius:var(--radius); }
+  input:focus, textarea:focus, select:focus{ border-color:var(--accent); }
+  textarea{ resize:vertical; min-height:100px; }
+  .submit-btn{ justify-self:start; background:var(--accent); color:#14100A; border:none; padding:12px 24px; font-size:0.92rem; font-weight:500; cursor:pointer; font-family:inherit; transition:background 0.15s ease; }
+  .submit-btn:hover{ background:#CDB278; }
+  .form-status{ font-size:0.88rem; color:#8AAE93; min-height:1.2em; }
+
+  /* footer */
+  footer{ padding:44px 0; }
+  .foot-top{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:24px; padding-bottom:24px; border-bottom:1px solid var(--line); margin-bottom:20px; }
+  .foot-brand .mark{ font-family:'Source Serif 4',serif; color:var(--accent); font-size:1.3rem; }
+  .foot-brand p{ color:var(--ink-dim); font-size:0.86rem; margin-top:8px; }
+  .foot-links{ display:flex; gap:22px; flex-wrap:wrap; }
+  .foot-links a{ color:var(--ink-dim); text-decoration:none; font-size:0.84rem; }
+  .foot-links a:hover{ color:var(--ink); }
+  .foot-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; color:var(--ink-dim); font-size:0.8rem; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 980px){
+    .about-body, .approach, .product-panel, .cta-grid, .contact-grid{ grid-template-columns:1fr; }
+    .wwd-grid{ grid-template-columns:repeat(2,1fr); }
+    .steps{ grid-template-columns:repeat(2,1fr); }
+    .why-grid{ grid-template-columns:repeat(2,1fr); }
+    .markets-grid{ grid-template-columns:1fr; }
+  }
+  @media (max-width: 680px){
+    .wrap{ padding:0 20px; }
+    nav.links{ display:none; }
+    .menu-btn{ display:block; }
+    section{ padding:64px 0; }
+    .wwd-grid{ grid-template-columns:1fr; }
+    .steps{ grid-template-columns:1fr; }
+    .why-grid{ grid-template-columns:1fr; }
+    .field-row{ grid-template-columns:1fr; }
+    .section-head{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="#home">
+      <span class="mark">SET</span>
+      <span class="name"><span>SALEH ENERGY TRADING</span><span>ENERGY TRADING &amp; SOURCING</span></span>
+    </a>
+    <nav class="links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#what-we-do">What We Do</a>
+      <a href="#products">Products</a>
+      <a href="#markets">Markets</a>
+      <a href="#how-we-work">How We Work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="cta" href="#contact">Contact Us</a>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <svg class="hero-illustration" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#0B141C" stop-opacity="1"/>
+        <stop offset="0.55" stop-color="#0B141C" stop-opacity="0.55"/>
+        <stop offset="1" stop-color="#0B141C" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <circle cx="980" cy="180" r="1" fill="none" stroke="#223140" stroke-width="1"/>
+    <g stroke="#2A3D4C" stroke-width="1" fill="none" opacity="0.7">
+      <path d="M700,420 Q 850,300 980,190"/>
+      <path d="M700,420 Q 900,380 1060,260" stroke-dasharray="4 6"/>
+      <circle cx="700" cy="420" r="3" fill="#BB9C5D" stroke="none"/>
+      <circle cx="980" cy="190" r="3" fill="#BB9C5D" stroke="none"/>
+      <circle cx="1060" cy="260" r="3" fill="#BB9C5D" stroke="none"/>
+    </g>
+    <g fill="#132534" opacity="0.9">
+      <rect x="760" y="200" width="18" height="70"/>
+      <rect x="790" y="180" width="18" height="90"/>
+      <rect x="820" y="215" width="18" height="55"/>
+      <rect x="850" y="190" width="18" height="80"/>
+    </g>
+    <g fill="#152838">
+      <path d="M650,430 L1150,430 L1120,460 L690,460 Z"/>
+      <rect x="700" y="405" width="60" height="26"/>
+      <rect x="780" y="395" width="40" height="36"/>
+      <rect x="840" y="410" width="30" height="21"/>
+    </g>
+    <line x1="0" y1="460" x2="1200" y2="460" stroke="#1B2C39" stroke-width="1"/>
+    <rect x="0" y="0" width="1200" height="500" fill="url(#fade)"/>
+  </svg>
+  <div class="wrap hero-content">
+    <div class="eyebrow">SET — INTERNATIONAL ENERGY TRADING</div>
+    <h1>Connecting global energy supply with growing markets.</h1>
+    <p class="lede">Saleh Energy Trading connects international energy suppliers with established buyers across Bangladesh and South Asia. Through strong market relationships, commercial coordination and international sourcing, we help create efficient connections between global supply and regional demand.</p>
+    <div class="actions">
+      <a class="btn-primary" href="#about">Our Business</a>
+      <a class="btn-ghost" href="#contact">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="tag">ABOUT</div>
+        <h2>Building connections across the energy supply chain.</h2>
+      </div>
+      <p>Saleh Energy Trading (SET) is a Bangladesh-based energy trading and commercial facilitation company focused on connecting international energy suppliers with established buyers in high-growth markets.</p>
+    </div>
+    <div class="about-body">
+      <div>
+        <p>Operating from Dhaka, SET develops relationships across the energy supply chain and works closely with suppliers, traders, importers and industrial partners. Our business is built around understanding both sides of a transaction — the requirements of international suppliers and the commercial and operational needs of buyers.</p>
+        <p>We help bridge that gap through market access, sourcing, commercial coordination and long-term relationship development.</p>
+      </div>
+      <div class="about-focus">
+        <h3>Current focus</h3>
+        <p>Our initial focus is the bulk LPG market, with the objective of expanding our activities across the wider energy and commodity sector as the company grows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="what-we-do">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="tag">WHAT WE DO</div>
+        <h2>Where we sit in the transaction.</h2>
+      </div>
+      <p>We facilitate energy trading opportunities by working closely with both sides of every transaction, from first introduction through to delivery.</p>
+    </div>
+    <div class="wwd-grid">
+      <div class="wwd-card">
+        <h3>Energy trading &amp; sourcing</h3>
+        <p>SET identifies international supply opportunities and connects them with qualified buyers in our target markets. We work to understand specifications, quantities, delivery requirements and commercial structures before bringing counterparties together.</p>
+      </div>
+      <div class="wwd-card">
+        <h3>Buyer &amp; supplier facilitation</h3>
+        <p>Strong transactions begin with the right counterparties. SET develops relationships with both international suppliers and regional buyers, helping facilitate introductions, negotiations and ongoing commercial communication.</p>
+      </div>
+      <div class="wwd-card">
+        <h3>Market development</h3>
+        <p>We assist international suppliers seeking access to the Bangladesh market by providing local market knowledge, commercial relationships and business-development support, while helping buyers identify potential international sources of energy products.</p>
+      </div>
+      <div class="wwd-card">
+        <h3>Commercial coordination</h3>
+        <p>SET assists counterparties throughout commercial discussions, including coordination surrounding:</p>
+        <ul>
+          <li>Product specifications &amp; volumes</li>
+          <li>Pricing &amp; payment structures</li>
+          <li>Delivery terms &amp; inspection</li>
+          <li>Documentation &amp; contract discussions</li>
+        </ul>
+      </div>
+      <div class="wwd-card">
+        <h3>Logistics coordination</h3>
+        <p>Energy transactions require coordination between suppliers, buyers, vessels, ports and inspection companies. SET helps facilitate communication regarding delivery structures, vessel requirements, discharge planning and other logistical considerations.</p>
+      </div>
+      <div class="wwd-card">
+        <h3>Long-term supply relationships</h3>
+        <p>Our objective extends beyond individual transactions. SET seeks to develop lasting relationships between reliable suppliers and established buyers, creating opportunities for recurring supply programs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="products">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="tag">PRODUCTS</div>
+        <h2>Liquefied Petroleum Gas (LPG)</h2>
+      </div>
+      <p>Bulk LPG is currently a primary focus of Saleh Energy Trading.</p>
+    </div>
+    <div class="product-panel">
+      <div>
+        <p>SET works to connect international LPG supply with established importers and buyers within Bangladesh and other regional markets. Depending on buyer requirements and supplier availability, commercial discussions may cover different propane and butane compositions, cargo quantities and delivery structures.</p>
+        <p>Final contractual terms remain subject to agreement between the relevant counterparties.</p>
+      </div>
+      <div>
+        <h3 style="font-size:1.05rem; margin-bottom:12px;">Typical areas of coordination</h3>
+        <div class="coord-list">
+          <div><span>Bulk LPG supply</span><span></span></div>
+          <div><span>Propane / butane mixtures</span><span></span></div>
+          <div><span>Large-volume cargo requirements</span><span></span></div>
+          <div><span>International sourcing</span><span></span></div>
+          <div><span>Marine transportation coordination</span><span></span></div>
+          <div><span>Commercial negotiations</span><span></span></div>
+          <div><span>Inspection &amp; documentation</span><span></span></div>
+          <div><span>Long-term supply arrangements</span><span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="markets">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="tag">MARKETS</div>
+        <h2>Local presence, international reach.</h2>
+      </div>
+      <p>Our objective is to connect competitive global supply with growing energy demand across Bangladesh and South Asia.</p>
+    </div>
+    <div class="markets-grid">
+      <div class="market">
+        <h3>Bangladesh</h3>
+        <p>Bangladesh is SET's home market and a central focus of our operations. Our local presence allows us to develop relationships with buyers while understanding the commercial and logistical requirements of operating within the market.</p>
+      </div>
+      <div class="market">
+        <h3>International supply</h3>
+        <p>SET seeks relationships with energy producers, exporters, trading houses and suppliers across international markets, connecting competitive global supply with regional demand.</p>
+      </div>
+      <div class="market">
+        <h3>South Asia</h3>
+        <p>As SET develops, the company intends to expand its network and commercial relationships across the wider South Asian energy market.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how-we-work">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="tag">HOW WE WORK</div>
+        <h2>From requirement to relationship.</h2>
+      </div>
+      <p>A straightforward process for connecting supply and demand, built on careful coordination at every stage.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="num">01</div><h3>Understand requirements</h3><p>We identify the buyer's product specifications, required quantity, delivery destination and commercial requirements.</p></div>
+      <div class="step"><div class="num">02</div><h3>Source</h3><p>SET approaches suitable international suppliers and trading partners within its network.</p></div>
+      <div class="step"><div class="num">03</div><h3>Connect</h3><p>Qualified buyers and suppliers are introduced and commercial discussions begin.</p></div>
+      <div class="step"><div class="num">04</div><h3>Coordinate</h3><p>SET facilitates communication surrounding commercial terms, documentation, inspection and logistics.</p></div>
+      <div class="step"><div class="num">05</div><h3>Build</h3><p>Our goal is to transform successful transactions into reliable, long-term supply relationships.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="why-set">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="tag">WHY SET</div>
+        <h2>Local knowledge. International reach.</h2>
+      </div>
+      <p>Successful transactions depend on understanding markets, logistics, commercial requirements and the expectations of both counterparties. SET combines local market relationships with an expanding international supplier network to help bridge the distance between supply and demand.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-item"><h3>Market access</h3><p>Strong understanding of the Bangladesh market and its commercial environment.</p></div>
+      <div class="why-item"><h3>International sourcing</h3><p>Developing relationships with suppliers and trading partners across multiple international markets.</p></div>
+      <div class="why-item"><h3>Commercial understanding</h3><p>Focused on creating workable transaction structures for both buyers and suppliers.</p></div>
+      <div class="why-item"><h3>Relationship driven</h3><p>Building long-term commercial relationships rather than focusing solely on individual transactions.</p></div>
+      <div class="why-item"><h3>Responsive execution</h3><p>Direct communication and active coordination throughout the commercial process.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="approach">
+  <div class="wrap approach">
+    <h2>Relationships built for the long term.</h2>
+    <p>At Saleh Energy Trading, we believe successful energy trading is built on trust, transparency and consistent execution. We aim to understand the objectives of every counterparty we work with and create commercial relationships capable of developing beyond a single transaction. Our role is to make international energy business easier to navigate by bringing the right people, information and opportunities together.</p>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap cta-grid">
+    <div>
+      <h2>Looking to enter the Bangladesh market?</h2>
+      <p>Saleh Energy Trading works with international suppliers and trading partners seeking commercial opportunities within Bangladesh. Our local relationships and market understanding allow us to help identify potential buyers, facilitate introductions and coordinate commercial discussions.</p>
+      <div class="actions" style="margin-top:26px;">
+        <a class="btn-primary" href="#contact">Become a Supply Partner</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="buyer-cta">
+  <div class="wrap cta-grid">
+    <div>
+      <h2>Looking for international supply?</h2>
+      <p>SET works to identify suitable international supply opportunities based on buyer specifications, volumes, delivery requirements and commercial expectations.</p>
+    </div>
+    <div class="mini-form">
+      <h3>Submit a requirement</h3>
+      <form id="requirementForm">
+        <div class="field-row">
+          <div><label for="rCompany">Company name</label><input id="rCompany" name="company" type="text" required></div>
+          <div><label for="rProduct">Product required</label><input id="rProduct" name="product" type="text" placeholder="e.g. Bulk LPG" required></div>
+        </div>
+        <div class="field-row">
+          <div><label for="rQty">Monthly / cargo quantity</label><input id="rQty" name="quantity" type="text"></div>
+          <div><label for="rSpec">Required specification</label><input id="rSpec" name="spec" type="text"></div>
+        </div>
+        <div class="field-row">
+          <div><label for="rPort">Delivery port</label><input id="rPort" name="port" type="text"></div>
+          <div><label for="rIncoterm">Preferred incoterm</label><input id="rIncoterm" name="incoterm" type="text" placeholder="e.g. CFR, FOB"></div>
+        </div>
+        <div class="field-row">
+          <div><label for="rPeriod">Target delivery period</label><input id="rPeriod" name="period" type="text"></div>
+          <div><label for="rContact">Contact information</label><input id="rContact" name="contact" type="text" required></div>
+        </div>
+        <button class="submit-btn" type="submit">Submit requirement</button>
+        <div class="form-status" id="reqStatus" role="status"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="tag">CONTACT</div>
+        <h2>Let's talk energy.</h2>
+      </div>
+      <p>Whether you are an international supplier looking to develop opportunities in Bangladesh or a buyer seeking reliable international supply, we welcome the opportunity to discuss potential cooperation.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <dl>
+          <dt>Company</dt>
+          <dd>Saleh Energy Trading</dd>
+          <dt>Location</dt>
+          <dd>Dhaka, Bangladesh</dd>
+          <dt>Email</dt>
+          <dd><a href="mailto:saqib.saleh20@gmail.com">saqib.saleh20@gmail.com</a></dd>
+          <dt>Phone (Bangladesh)</dt>
+          <dd><a href="tel:+8801775105528">+880 1775 105528</a></dd>
+          <dt>Phone (Thailand)</dt>
+          <dd><a href="tel:+66653407312">+66 65 340 7312</a></dd>
+          <dt>WhatsApp</dt>
+          <dd><a href="https://wa.me/8801775105528" target="_blank" rel="noopener">+880 1775 105528</a></dd>
+        </dl>
+      </div>
+      <form id="contactForm">
+        <div class="field-row">
+          <div><label for="cName">Name</label><input id="cName" name="name" type="text" required></div>
+          <div><label for="cCompany">Company</label><input id="cCompany" name="company" type="text"></div>
+        </div>
+        <div class="field-row">
+          <div><label for="cPosition">Position</label><input id="cPosition" name="position" type="text"></div>
+          <div><label for="cCountry">Country</label><input id="cCountry" name="country" type="text"></div>
+        </div>
+        <div class="field-row">
+          <div><label for="cEmail">Email</label><input id="cEmail" name="email" type="email" required></div>
+          <div><label for="cPhone">Phone / WhatsApp</label><input id="cPhone" name="phone" type="text"></div>
+        </div>
+        <div>
+          <label for="cInterest">Area of interest</label>
+          <select id="cInterest" name="interest">
+            <option value="supply">International supply</option>
+            <option value="buyer">Buyer requirement</option>
+            <option value="partnership">Market partnership</option>
+            <option value="general">General inquiry</option>
+          </select>
+        </div>
+        <div>
+          <label for="cMessage">Message</label>
+          <textarea id="cMessage" name="message" required></textarea>
+        </div>
+        <button class="submit-btn" type="submit">Send inquiry</button>
+        <div class="form-status" id="formStatus" role="status"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <span class="mark">SET</span>
+        <p>Energy Trading | International Sourcing | Market Development<br>Dhaka, Bangladesh</p>
+      </div>
+      <div class="foot-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#what-we-do">What We Do</a>
+        <a href="#products">Products</a>
+        <a href="#markets">Markets</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Saleh Energy Trading. All rights reserved.</span>
+      <a href="#" aria-label="LinkedIn">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formStatus').textContent = 'Thanks — this is a static preview. Connect a form handler to receive inquiries.';
+    this.reset();
+  });
+  document.getElementById('requirementForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('reqStatus').textContent = 'Thanks — this is a static preview. Connect a form handler to receive requirements.';
+    this.reset();
+  });
+
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('in'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.section-head, .wwd-card, .step, .market, .why-item').forEach(el=>{
+    el.classList.add('reveal');
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
